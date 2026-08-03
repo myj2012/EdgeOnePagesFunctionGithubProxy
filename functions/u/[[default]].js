@@ -37,9 +37,7 @@ async function handleRequest(request) {
   const effective_host = host_header || current_host;
   
   // 检查特殊路径重定向
-  if (redirect_paths.includes(url.pathname)) {
-    return Response.redirect('https://www.gov.cn', 302);
-  }
+
 
   // 强制使用 HTTPS
   if (url.protocol === 'http:') {
