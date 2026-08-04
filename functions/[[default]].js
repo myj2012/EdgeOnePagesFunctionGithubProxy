@@ -9,7 +9,7 @@ const domain_mappings = {
   'gist.githubusercontent.com': 'gist-githubusercontent-com.',
   'github.io': 'github-io.',
   'assets-cdn.github.com': 'assets-cdn-github-com.',
-  'cdn.jsdelivr.net': 'cdn.jsdelivr-net.',
+  'cdn.jsdelivr.net': 'cdn.jsdelivr-net.',//there
   'securitylab.github.com': 'securitylab-github-com.',
   'www.githubstatus.com': 'www-githubstatus-com.',
   'npmjs.com': 'npmjs-com.',
@@ -21,7 +21,7 @@ const domain_mappings = {
 };
 
 // 需要重定向的路径
-const redirect_paths = ['/', '/login', '/signup', '/copilot', '/search/custom_scopes', 'session'];
+
 
 // EdgeOne Pages Function export
 export function onRequest(context) {
