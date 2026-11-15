@@ -9,7 +9,7 @@ const domain_mappings = {
   'gist.githubusercontent.com': 'gist-githubusercontent-com.',
   'github.io': 'github-io.',
   'assets-cdn.github.com': 'assets-cdn-github-com.',
-  'cdn.jsdelivr.net': 'cdn.jsdelivr-net.',//there
+  'cdn.jsdelivr.net': 'cdn.jsdelivr-net.',
   'securitylab.github.com': 'securitylab-github-com.',
   'www.githubstatus.com': 'www-githubstatus-com.',
   'npmjs.com': 'npmjs-com.',
@@ -78,13 +78,22 @@ async function handleRequest(request) {
 
   // 构建新的请求URL
   const new_url = new URL(url);
-  new_url.host = target_host;
+  // JS/CSS 资源走独立 CDN 加速，复用边缘缓存
+  if (target_host === 'github.githubassets.com') {
+    new_url.host = 'github-githubassets-com.pxy.myj.asia';
+  } else {
+    new_url.host = target_host;
+  }
   new_url.pathname = pathname;
   new_url.protocol = 'https:';
 
   // 设置新的请求头
   const new_headers = new Headers(request.headers);
-  new_headers.set('Host', target_host);
+  if (target_host === 'github.githubassets.com') {
+    new_headers.set('Host', 'github-githubassets-com.pxy.myj.asia');
+  } else {
+    new_headers.set('Host', target_host);
+  }
   new_headers.set('Referer', new_url.href);
   
   try {
